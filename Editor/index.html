@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Editor (2GJ) - Sin Nombre</title>
+
+    <link rel="stylesheet" href="./node_modules/simplemde/dist/simplemde.min.css">
+    <script src="./node_modules/simplemde/dist/simplemde.min.js"></script>
+
+</head>
+<body>
+
+    <button onclick="openFile()">Abrir</button>
+    <button onclick="darkMode()">Dark Mode</button>
+    
+    <textarea id="MyID"></textarea>
+
+    <style>
+
+        html, body{
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .CodeMirror{
+            flex: 1;
+        }
+    </style>
+
+    <script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("MyID") });
+
+        function darkMode(){
+            document.querySelector(".CodeMirror").style.background = "black"
+        }
+
+        function openFile(){
+            ipcRenderer.send('file-open','file-open')
+        }
+
+        document.ondrop = function(event){
+            event.preventDefault();
+
+            if(event.dataTransfer.items){
+                item = event.dataTransfer.items[0];
+                if(item.kind == "file" && item.type == "text/plain"){
+                    var reader = new FileReader();
+                    var file = item.getAsFile();
+                    reader.onload = e => {
+                        console.log(e.target.result);
+                        simplemde.value("2GJ: " + e.target.result);
+                    }
+                    reader.readAsText(file);
+                }
+            }
+        }
+    </script>
+
+    <script>
+        const { ipcRenderer } = require('electron')
+        
+        
+        ipcRenderer.send('editor-channel','Página cargada')
+
+        ipcRenderer.on('file-open',(event,arg)=>{
+            console.log("Mensaje recibido desde el proceso principal: " + arg);
+            simplemde.value(arg)
+        });
+
+
+        ipcRenderer.on('editor-channel',(event,arg)=>{
+            console.log("Mensaje recibido desde el proceso principal: " + arg);
+            editorOptions(event,arg)
+        });
+
+        
+        ipcRenderer.on('title-change',(event, arg) => {
+            document.title = arg;
+        })
+
+        
+        function editorOptions(event, arg){
+
+            switch (arg) {
+                case 'style-bold':
+                    simplemde.toggleBold()
+                    break;
+                case 'style-italic':
+                    simplemde.toggleItalic()
+                    break;
+                case 'style-h1':
+                    simplemde.toggleHeading1()
+                    break;
+                case 'style-h2':
+                    simplemde.toggleHeading2()
+                    break;
+                case 'file-save':
+                    console.log(simplemde.value())
+                    event.sender.send('file-save',simplemde.value())
+                    break;
+                }
+        }
+
+    </script>
+</body>
+</html>

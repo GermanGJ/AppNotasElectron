@@ -1,0 +1,7 @@
+Test de guardado de archivo.
+
+Se realiza prueba de apertura y guardado correctamente.
+
+Test de botones en menu abrir y guardar.
+
+Att: 2GJ.

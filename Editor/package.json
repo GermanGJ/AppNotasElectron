@@ -1,0 +1,32 @@
+{
+  "name": "mieditor2gj",
+  "version": "1.0.0",
+  "description": "Mi Editor (2GJ) -",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "dev:windows": "electron-builder --windows --dir",
+    "pro:windows": "electron-builder --windows",
+    "dev:win": "electron-builder --win --ia32 --dir",
+    "pro:win": "electron-builder --win --ia32 --dir"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GermanGJ/AppNotasElectron.git"
+  },
+  "author": "2GJ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GermanGJ/AppNotasElectron/issues"
+  },
+  "homepage": "https://github.com/GermanGJ/AppNotasElectron#readme",
+  "devDependencies": {
+    "electron": "^8.2.1",
+    "electron-builder": "^22.4.1",
+    "electron-packager": "^14.2.1"
+  },
+  "dependencies": {
+    "simplemde": "^1.11.2"
+  }
+}

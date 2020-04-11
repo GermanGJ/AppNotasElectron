@@ -1,0 +1,23 @@
+{
+  "name": "appnotaselectron",
+  "version": "1.0.0",
+  "description": "App de notas en electron",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GermanGJ/AppNotasElectron.git"
+  },
+  "author": "2GJ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GermanGJ/AppNotasElectron/issues"
+  },
+  "homepage": "https://github.com/GermanGJ/AppNotasElectron#readme",
+  "devDependencies": {
+    "electron": "^8.2.1"
+  }
+}
